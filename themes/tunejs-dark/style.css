@@ -1,0 +1,62 @@
+.clear{ clear: both; }
+.no-select{ -webkit-touch-callout: none; -webkit-user-select: none;	-khtml-user-select: none;	-moz-user-select: none;	-ms-user-select: none; user-select: none; outline-style:none; }
+tunejs{ cursor: default; }
+
+
+/* GENERAL FORMAT */
+.textfield{ outline: none; border: none; padding: 0px; border-radius: 2px; -webkit-box-shadow:inset 0 0 7px 0 #212121; box-shadow:inset 0 0 7px 0 #212121; }
+
+/* THEME SPECIFIC FORMAT HEADER */
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,700";
+body{ background: #1D1F21; padding: 0; margin: 0; font-family: "Open Sans", Arial, Sans; color: #FFF; width: 100%; height: 100%; overflow: hidden; }
+
+tunejs-head{ display: block; width: 100%; background: #1D1F21; border-bottom: 2px solid #111; }
+tunejs-head-inner{ display: block; padding: 10px; height: 40px; }
+tunejs-head-playercontrols{ display: block; float: left; margin-right: 10px; }
+tunejs-head-playersong{ display: block; float: left; width: 995px; position: relative; }
+tunejs-head-search{ float:left; display: block; position: relative; width: 200px; margin-left: 20px; }
+tunejs-head-buttongroup{ float: left; display: block; margin-left: 10px; margin-top: 4px; }
+
+#prev, #next, #play{ width: 40px; height: 40px; background: transparent; float: left; margin-right: 5px; cursor: pointer; border-radius: 2px; }
+#prev:hover, #next:hover, #play:hover, #prev.active, #next.active, #play.active{ background-color: #4673f0; }
+#prev:active, #next:active, #play:active{ -webkit-box-shadow:inset 0 0 7px 0 #212121; box-shadow:inset 0 0 7px 0 #212121; }
+#play{ background: url(./images/play.png) no-repeat 10px 7px; }
+#next{ background: url(./images/next.png) no-repeat 4px 10px; }
+#prev{ background: url(./images/prev.png) no-repeat 2px 10px; }
+
+#songinfo{ margin-bottom: 8px; margin-top: 2px; white-space: nowrap; }
+#songinfo span{ font-size: 12px; }
+#songinfo strong{ font-size: 16px; }
+#songtitle{ margin-right: 10px; }
+#songalbum{ margin-right: 10px; margin-left: 10px; }
+#songartist{ margin-left: 10px; }
+#songseek{ background: #333; height: 5px; position: relative; border-radius: 2px; margin-right: 80px; }
+#songprocess{ background: #4673f0; height: 5px; width: 65%; border-radius: 2px; position: relative; }
+#seekbutton{ position: absolute; width: 10px; right: -2px; top: -2px; height: 10px; background-color: #FFF; border-radius: 50%; cursor: pointer; }
+#songtime{ font-size: 12px; position: absolute; right: 0; bottom: -2px; }
+#songtime span{ display: inline-block; width: 31px; }
+#songelapsed{ text-align: right; }
+
+#songsearch{ display: block; height: 30px; margin-top: 4px; background: #333; color: #FFF; border:1px solid #484848; }
+#searchbutton{ background: #4673f0 url(./images/search.png) no-repeat 5px 4px; border: none; position: absolute; width: 30px; height: 30px; right: 0; top: 4px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; cursor: pointer; }
+#searchbutton:active{ -webkit-box-shadow:inset 0 0 7px 0 #212121; box-shadow:inset 0 0 7px 0 #212121; }
+
+tunejs-head-buttongroup .button{ width: 30px; height: 30px; border-radius: 2px; float: left; }
+tunejs-head-buttongroup .button:hover, tunejs-head-buttongroup .button.active{ background-color: #4673f0; cursor: pointer; }
+tunejs-head-buttongroup .button:active{ -webkit-box-shadow:inset 0 0 7px 0 #212121; box-shadow:inset 0 0 7px 0 #212121; }
+#menubutton{ background-image: url(./images/menu.png); }
+#fullscreenbutton{ background-image: url(./images/fullscreen.png); }
+
+/* THEME SPECIFIC FORMAT CONTENT */
+tunejs-content{ display: block; position: relative; }
+tunejs-content-left{ float: left; display: block; width: 20%; height: 100%; border-top: 1px solid #484848; position: relative; }
+tunejs-content-left-inner{ display: block; height: 100%; position: relative; }
+.tab-group{ position: absolute; bottom: 10px; left: 10px; }
+.tab-group .tab{ background: #333; float: left; padding: 8px; font-size: 12px; border: 1px solid #111; border-left: 1px solid #616161; cursor: pointer; }
+#tab-wrapper{ background: #333; height: 50%; border: 10px solid #1D1F21; }
+
+tunejs-content-right{ float: left; display: block; width: 80%; height: 100%; border-top: 1px solid #484848; -webkit-box-shadow:inset 1px 0 0 0 #484848; box-shadow:inset 1px 0 0 0 #484848; }
+
+/* THEME SPECIFIC FORMAT FOOTER */
+tunejs-footer{ display: block; padding: 5px; background: #111; width: 100%; border-top: 1px solid #111; font-size: 12px; font-weight: 300; }
+tunejs-footer strong{ font-weight: 700; }

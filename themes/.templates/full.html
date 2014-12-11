@@ -1,0 +1,64 @@
+<!DOCTYPE hmtl>
+<html>
+	<head>
+		<title>TuneJS</title>
+		<link rel="stylesheet" type="text/css" href="../tunejs-dark/style.css" />
+		<script type="text/javascript" src="../.libs/jquery.2.1.1.min.js"></script>
+	</head>
+	<body class="no-select">
+
+		<tunejs>
+
+			<tunejs-head>
+				<tunejs-head-inner>
+					<tunejs-head-playercontrols>
+						<div id="prev"></div>
+						<div id="play"></div>
+						<div id="next"></div>
+						<div class="clear"></div>
+					</tunejs-head-playercontrols>
+					<tunejs-head-playersong>
+						<div id="songinfo"><strong id="songtitle">Runnin' Down a Dream</strong> &laquo; <span id="songalbum">Anthology: Through the Years (disc 2)</span> &laquo; <span id="songartist">Tom Petty & The Heartbreakers</span></div>
+						<div id="songseek"><div id="songprocess"><div id="seekbutton"></div></div></div>
+						<div id="songtime"><span id="songelapsed">1:30</span> / <span id="songcomplete">3:40</span></div>
+					</tunejs-head-playersong>
+					<tunejs-head-search>
+						<input type="text" id="songsearch" class="textfield" />
+						<button type="submit" id="searchbutton"></button>
+					</tunejs-head-search>
+					<tunejs-head-buttongroup>
+						<div class="button" id="fullscreenbutton"></div>
+						<div class="button" id="menubutton"></div>
+						<div class="clear"></div>
+					</tunejs-head-buttongroup>
+					<div class="clear"></div>
+				</tunejs-head-inner>
+			</tunejs-head>
+
+			<tunejs-content>
+				<tunejs-content-left>
+					<tunejs-content-left-inner>
+						<div id="tab-wrapper">
+
+						</div>
+						<div id="tab-buttons" class="tab-group">
+							<div class="tab">Info</div>
+							<div class="tab">Next Songs</div>
+							<div class="tab">Queue</div>
+						</div>
+					</tunejs-content-left-inner>
+				</tunejs-content-left>
+				<tunejs-content-right>
+
+				</tunejs-content-right>
+				<div class="clear"></div>
+			</tunejs-content>
+
+			<tunejs-footer><!--<strong>DAILY SONG:</strong> "You say YES, I say NO. You say STOP but I GO... You say GOODBYE and I say HELLO." --- The Beatles (Hello, Goodbye)--></tunejs-footer>
+
+		</tunejs>
+
+		<script type="text/javascript" src="../.libs/jquery.2.1.1.min.js"></script>
+		<script type="text/javascript" src="../.libs/full.js"></script>
+	</body>
+</html>
