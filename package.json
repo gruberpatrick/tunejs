@@ -1,0 +1,28 @@
+{
+  "name": "tunejs",
+  "version": "0.0.0",
+  "description": "Socket Media Player",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gruberpatrick/tunejs.git"
+  },
+  "keywords": [
+    "tune",
+    "js",
+    "socket",
+    "media",
+    "player"
+  ],
+  "author": "Gruber Patrick",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/gruberpatrick/tunejs/issues"
+  },
+  "dependencies": {
+    "player": "~0.3.0"
+  }
+}
