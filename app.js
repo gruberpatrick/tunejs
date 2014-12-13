@@ -8,20 +8,31 @@ var Controller = require('./lib/controller.lib');
 
 // initialize DB and Player
 DB.DB();
-Player.createPlaylist("SHUFFLE");
+
+// Load Database from Folder
+//DB.loadFolder('/media/patrick/swap/music/', function(lL, lC, sStat){ if(sStat == 'directory'){ Log.log(lL + ' - ' + lC); } });
+//DB.saveDB(function(){ Log.log('DB saved.'); });
+
+Player.init();
+Player.createPlaylist('SHUFFLE');
 Player.play(function(oSong){
-	Log.log("Now playing: \"" + oSong.sTitle + " << " + oSong.sArtist + "\"");
+	Log.log('Now playing: "' + oSong.sTitle + ' << ' + oSong.sArtist + '"');
 	Websocket.broadcast(Messages.createSongChangedMessage(oSong));
 });
 
 // open Socket connection
 Websocket.startSocket(1234, function(sMessage, oWS){
 
-	var oMessage = JSON.parse(sMessage);
+	try{
+		var oMessage = JSON.parse(sMessage);
+	}catch(e){
+		Log.errorLog('Wrong Protocol format: ' + e);
+		return;
+	}
 
-	if(oMessage.type == "PlayerCommand")
-		Controller.parsePlayerCommand(oMessage.content);
-	else if(oMessage.type == "SongRequest")
-		Controller.parseSongRequest(oMessage.content);
+	if(oMessage.type == 'PlayerCommand')
+		Controller.parsePlayerCommand(oMessage.content, oWS);
+	else if(oMessage.type == 'SongRequest')
+		Controller.parseSongRequest(oMessage.content, oWS);
 
 });

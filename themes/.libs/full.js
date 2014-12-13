@@ -1,3 +1,5 @@
+var oCurrentSong = {};
+
 var FullTmpl = {
 
 	renderTemplate: function(){
@@ -47,6 +49,26 @@ var FullTmpl = {
 	}
 
 };
+
+var oClient = new WebSocket("ws://localhost:1234");
+oClient.onopen = function(){
+	oClient.send(JSON.stringify({"type":"SongRequest","content":""}));
+	$("#next").click(function(){
+		oClient.send(JSON.stringify({"type":"PlayerCommand","content":"next"}));
+	});
+	$("#prev").click(function(){
+		oClient.send(JSON.stringify({"type":"PlayerCommand","content":"prev"}));
+	});
+};
+oClient.onmessage = function(sMessage){
+	var oMessage = JSON.parse(sMessage.data);
+	if(oMessage.type == "SongChanged" || oMessage.type == "SongResponse"){
+		oCurrentSong = oMessage.content;
+		$("#songtitle").html(oMessage.content.sTitle);
+		oMessage.content.sAlbum != "" ? $("#songalbum").html(oMessage.content.sAlbum) : $("#songalbum").html(oMessage.content.sArtist + " <unknown>");
+		$("#songartist").html(oMessage.content.sArtist);
+	}
+}
 
 FullTmpl.renderTemplate();
 $(window).resize(function(){
