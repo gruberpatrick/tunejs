@@ -10,8 +10,10 @@ var Controller = require('./lib/controller.lib');
 DB.DB();
 
 // Load Database from Folder
-//DB.loadFolder('/media/patrick/swap/music/', function(lL, lC, sStat){ if(sStat == 'directory'){ Log.log(lL + ' - ' + lC); } });
-//DB.saveDB(function(){ Log.log('DB saved.'); });
+DB.loadFolder('/media/patrick/swap/music/', function(lPerc, sInfo){
+	Log.log(lPerc + "%");
+});
+DB.saveDB();
 
 Player.init();
 Player.createPlaylist('SHUFFLE');
