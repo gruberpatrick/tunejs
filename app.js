@@ -6,14 +6,19 @@ var Tools = require('./lib/tools.lib');
 var Messages = require('./lib/messages.lib');
 var Controller = require('./lib/controller.lib');
 
-// initialize DB and Player
-DB.DB();
-
 // Load Database from Folder
+Log.log("Performing DB actions.");
+DB.DB();
+var bChanged = false;
 DB.loadFolder('/media/patrick/swap/music/', function(lPerc, sInfo){
 	Log.log(lPerc + "%");
+	bChanged = true;
 });
-DB.saveDB();
+if(bChanged)
+	DB.saveDB();
+DB.songInfoCheck(0, function(){
+	DB.saveDB();
+});
 
 Player.init();
 Player.createPlaylist('SHUFFLE');
