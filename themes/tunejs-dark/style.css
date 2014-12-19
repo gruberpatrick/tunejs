@@ -21,6 +21,7 @@ tunejs-head-buttongroup{ float: left; display: block; margin-left: 10px; margin-
 #prev:hover, #next:hover, #play:hover, #prev.active, #next.active, #play.active{ background-color: #4673f0; }
 #prev:active, #next:active, #play:active{ -webkit-box-shadow:inset 0 0 7px 0 #212121; box-shadow:inset 0 0 7px 0 #212121; }
 #play{ background: url(./images/play.png) no-repeat 10px 7px; }
+#play.pause{ background-image: url(./images/pause.png); background-position: 9px 7px; background-repeat: no-repeat; }
 #next{ background: url(./images/next.png) no-repeat 4px 10px; }
 #prev{ background: url(./images/prev.png) no-repeat 2px 10px; }
 

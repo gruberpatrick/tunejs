@@ -10,21 +10,21 @@ var Controller = require('./lib/controller.lib');
 Log.log("Performing DB actions.");
 DB.DB();
 var bChanged = false;
-DB.loadFolder('/media/patrick/swap/music/', function(lPerc, sInfo){
+DB.loadFolder('', function(lPerc, sInfo){
 	Log.log(lPerc + "%");
 	bChanged = true;
 });
-if(bChanged)
-	DB.saveDB();
-DB.songInfoCheck(0, function(){
-	DB.saveDB();
-});
+if(bChanged){
+	DB.songInfoCheck(0, function(){
+		DB.saveDB();
+	});
+}
 
 Player.init();
 Player.createPlaylist('SHUFFLE');
 Player.play(function(oSong){
 	Log.log('Now playing: "' + oSong.sTitle + ' << ' + oSong.sArtist + '"');
-	Websocket.broadcast(Messages.createSongChangedMessage(oSong));
+	Websocket.broadcast(Messages.createSongChangedMessage(oSong, Player.getPlayerStatus()));
 });
 
 // open Socket connection

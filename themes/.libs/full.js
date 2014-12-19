@@ -1,4 +1,6 @@
 var oCurrentSong = {};
+var oPlayer = {};
+var bPlaying = true;
 
 var FullTmpl = {
 
@@ -49,39 +51,6 @@ var FullTmpl = {
 
 };
 
-var oClient = new WebSocket("ws://192.168.1.5:1234");
-oClient.onopen = function(){
-	oClient.send(JSON.stringify({"type":"SongRequest","content":""}));
-	$("#next").click(function(){
-		oClient.send(JSON.stringify({"type":"PlayerCommand","content":"next"}));
-	});
-	$("#prev").click(function(){
-		oClient.send(JSON.stringify({"type":"PlayerCommand","content":"prev"}));
-	});
-};
-
-oClient.onmessage = function(sMessage){
-
-	var oMessage = JSON.parse(sMessage.data);
-	if(oMessage.type == "SongChanged" || oMessage.type == "SongResponse"){
-
-		oCurrentSong = oMessage.content;
-		$("#songtitle").html(oMessage.content.sTitle);
-		oMessage.content.sAlbum != "" ? $("#songalbum").html(oMessage.content.sAlbum) : $("#songalbum").html(oMessage.content.sArtist + " <unknown>");
-		$("#songartist").html(oMessage.content.sArtist);
-
-		if(oMessage.content.lLength > 0){
-			$("#songcomplete").html(Math.floor(oMessage.content.lLength / 60) + ":" + (oMessage.content.lLength % 60 < 10 ? "0" + oMessage.content.lLength % 60 : oMessage.content.lLength % 60));
-		}
-
-		if(oMessage.content.lSeek > 0){
-
-		}
-
-	}
-
-}
-
 FullTmpl.renderTemplate();
 $(window).resize(function(){
 	FullTmpl.renderTemplate();
@@ -90,3 +59,59 @@ $(window).resize(function(){
 $("#fullscreenbutton").click(function(){
 	FullTmpl.toggleFullscreen();
 });
+
+// Media APP Angular Code
+(function(){
+
+	var app = angular.module("mediaApp", []);
+	app.controller("MediaControl", function(){
+
+		this.setPlay = function(bPlay){
+			bPlaying = bPlay;
+		};
+
+		this.isPlaying = function(){
+			return bPlaying;
+		};
+
+		var oClient = new WebSocket("ws://localhost:1234");
+		oClient.onopen = function(){
+			oClient.send(JSON.stringify({"type":"SongRequest","content":""}));
+			$("#next").click(function(){
+				oClient.send(JSON.stringify({"type":"PlayerCommand","content":"next"}));
+			});
+			$("#prev").click(function(){
+				oClient.send(JSON.stringify({"type":"PlayerCommand","content":"prev"}));
+			});
+			$("#play").click(function(){
+				if(bPlaying){
+					oClient.send(JSON.stringify({"type":"PlayerCommand","content":"pause"}));
+				}else{
+					oClient.send(JSON.stringify({"type":"PlayerCommand","content":"play"}));
+				}
+			});
+		};
+
+		oClient.onmessage = function(sMessage){
+			var oMessage = JSON.parse(sMessage.data);
+			if(oMessage.type == "SongChanged" || oMessage.type == "SongResponse" || oMessage.type == "PlayerStatusChanged"){
+				oCurrentSong = oMessage.content;
+				$("#songtitle").html(oMessage.content.sTitle);
+				oMessage.content.sAlbum != "" ? $("#songalbum").html(oMessage.content.sAlbum) : $("#songalbum").html(oMessage.content.sArtist + " <unknown>");
+				$("#songartist").html(oMessage.content.sArtist);
+				if(oMessage.content.lLength > 0){
+					$("#songcomplete").html(Math.floor(oMessage.content.lLength / 60) + ":" + (oMessage.content.lLength % 60 < 10 ? "0" + oMessage.content.lLength % 60 : oMessage.content.lLength % 60));
+				}
+				if(typeof oMessage.player != "undefined"){
+					oPlayer = oMessage.player;
+					bPlaying = oMessage.player.bPlaying;
+					if(bPlaying)
+						$("#play").addClass("pause");
+					else
+						$("#play").removeClass("pause");
+				}
+			}
+		}
+	});
+
+})();
