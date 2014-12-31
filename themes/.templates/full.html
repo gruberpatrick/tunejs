@@ -12,14 +12,14 @@
 				<tunejs-head-inner >
 					<tunejs-head-playercontrols>
 						<div id="prev"></div>
-						<div id="play" ng-class="{pause:controlCtrl.isPlaying()}"></div>
+						<div id="play" ng-class="{pause:bPlay}"></div>
 						<div id="next"></div>
 						<div class="clear"></div>
 					</tunejs-head-playercontrols>
 					<tunejs-head-playersong>
-						<div id="songinfo"><strong id="songtitle"></strong> &laquo; <span id="songalbum"></span> &laquo; <span id="songartist"></span></div>
-						<div id="songseek"><div id="songprocess"><div id="seekbutton"></div></div></div>
-						<div id="songtime"><span id="songelapsed">0:00</span> / <span id="songcomplete">0:00</span></div>
+						<div id="songinfo"><strong id="songtitle">{{oCurrentSong.sTitle}}</strong> &laquo; <span id="songalbum">{{oCurrentSong.sAlbum}}</span> &laquo; <span id="songartist">{{oCurrentSong.sArtist}}</span></div>
+						<div id="songseek"><div id="songprocess" style="width:{{lPercentage}}%;"><div id="seekbutton"></div></div></div>
+						<div id="songtime"><span id="songelapsed">{{formatTime(lPlayCounter)}}</span> / <span id="songcomplete">{{formatTime(oCurrentSong.lLength)}}</span></div>
 					</tunejs-head-playersong>
 					<tunejs-head-search>
 						<input type="text" id="songsearch" class="textfield" />

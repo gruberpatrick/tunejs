@@ -59,5 +59,5 @@ tunejs-content-left-inner{ display: block; height: 100%; position: relative; }
 tunejs-content-right{ float: left; display: block; width: 80%; height: 100%; border-top: 1px solid #484848; -webkit-box-shadow:inset 1px 0 0 0 #111; box-shadow:inset 1px 0 0 0 #111; }
 
 /* THEME SPECIFIC FORMAT FOOTER */
-tunejs-footer{ display: block; padding: 5px; background: #111; width: 100%; border-top: 1px solid #111; font-size: 12px; font-weight: 300; }
+tunejs-footer{ display: block; padding: 1px; background: #111; width: 100%; border-top: 1px solid #111; font-size: 12px; font-weight: 300; }
 tunejs-footer strong{ font-weight: 700; }
