@@ -64,7 +64,7 @@ $("#fullscreenbutton").click(function(){
 (function(){
 
 	var app = angular.module("mediaApp", []);
-	app.controller("MediaControl", function($scope){
+	app.controller("MediaControl", ["$scope", "$filter", function($scope, $filter){
 
 		// Angular Control
 		oMediaScope = $scope;
@@ -74,6 +74,11 @@ $("#fullscreenbutton").click(function(){
 		$scope.lPlayCounter = 0;
 		$scope.oTimeout = null;
 		$scope.lPercentage = 0;
+		$scope.aSongList = [];
+		$scope.aTmpList = null;
+
+		$scope.bInvert = false;
+		$scope.sOrder = "sTitle";
 
 		$scope.setPlay = function(bPlay){
 			$scope.$apply(function(){
@@ -115,7 +120,17 @@ $("#fullscreenbutton").click(function(){
 			return Math.floor(lSeconds / 60) + ":" + (lSeconds % 60 < 10 ? "0" + lSeconds % 60 : lSeconds % 60);
 		};
 
-	});
+		$scope.setSongList = function(aSongList){
+			$scope.aSongList = aSongList;
+			if($scope.aTmpList == null)
+				$scope.aTmpList = aSongList;
+		};
+
+		$scope.resetSongList = function(){
+			$scope.oSongList = $scope.oTmpList;
+		};
+
+	}]);
 
 })();
 
@@ -124,7 +139,10 @@ $("#fullscreenbutton").click(function(){
 //
 var oClient = new WebSocket("ws://localhost:1234");
 oClient.onopen = function(){
+
 	oClient.send(JSON.stringify({"type":"SongRequest","content":""}));
+	oClient.send(JSON.stringify({"type":"SongSearch","content": ""}));
+
 	$("#next").click(function(){
 		oClient.send(JSON.stringify({"type":"PlayerCommand","content":"next"}));
 	});
@@ -138,6 +156,15 @@ oClient.onopen = function(){
 			oClient.send(JSON.stringify({"type":"PlayerCommand","content":"play"}));
 		}
 	});
+	$("#searchbutton").click(function(){
+		var sSearch = $("#songsearch").val();
+		if(sSearch != ""){
+			oClient.send(JSON.stringify({"type":"SongSearch","content": sSearch}));
+		}else{
+			oMediaScope.resetSongList();
+		}
+	});
+
 };
 oClient.onmessage = function(sMessage){
 	var oMessage = JSON.parse(sMessage.data);
@@ -148,5 +175,7 @@ oClient.onmessage = function(sMessage){
 			oMediaScope.setPlay(oMessage.player.bPlaying);
 			oMediaScope.setPlayCounter(oMessage.player.lCurrentTime, oMessage.player.bPlaying);
 		}
+	}else if(oMessage.type == "SearchResponse"){
+		oMediaScope.setSongList(oMessage.content);
 	}
-}
+};

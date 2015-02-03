@@ -22,10 +22,13 @@ if(bChanged){
 
 Player.init();
 Player.createPlaylist('SHUFFLE');
+/*
+// Start Playback on Startup
 Player.play(function(oSong){
 	Log.log('Now playing: "' + oSong.sTitle + ' << ' + oSong.sArtist + '"');
 	Websocket.broadcast(Messages.createSongChangedMessage(oSong, Player.getPlayerStatus()));
 });
+*/
 
 // open Socket connection
 Websocket.startSocket(1234, function(sMessage, oWS){
@@ -41,5 +44,7 @@ Websocket.startSocket(1234, function(sMessage, oWS){
 		Controller.parsePlayerCommand(oMessage.content, oWS);
 	else if(oMessage.type == 'SongRequest')
 		Controller.parseSongRequest(oMessage.content, oWS);
+	else if(oMessage.type == 'SongSearch')
+		Controller.parseSongSearch(oMessage.content, oWS);
 
 });

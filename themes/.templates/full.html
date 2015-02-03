@@ -38,7 +38,16 @@
 				<tunejs-content-left>
 					<tunejs-content-left-inner>
 						<div id="tab-wrapper">
-
+							<table>
+								<tr><th>Name:</th><td>{{oCurrentSong.sTitle}}</td></tr>
+								<tr><th>Artist:</th><td>{{oCurrentSong.sArtist}}</td></tr>
+								<tr><th>Album:</th><td>{{oCurrentSong.sAlbum}}</td></tr>
+								<tr><th>Duration:</th><td>{{formatTime(oCurrentSong.lLength)}}</td></tr>
+								<tr><th>Year:</th><td>{{oCurrentSong.lYear}}</td></tr>
+								<tr><th>Track:</th><td>{{oCurrentSong.lTrack}}</td></tr>
+								<tr><th>Bitrate:</th><td>{{oCurrentSong.lBitrate}}</td></tr>
+								<tr><th>Comment:</th><td>{{oCurrentSong.sComment}}</td></tr>
+							</table>
 						</div>
 						<div id="tab-buttons" class="tab-group">
 							<div class="tab">Info</div>
@@ -48,7 +57,24 @@
 					</tunejs-content-left-inner>
 				</tunejs-content-left>
 				<tunejs-content-right>
-
+					<table border="0">
+						<tr>
+							<th>&nbsp;&nbsp;&nbsp;</th>
+							<th ng-click="sOrder='sTitle';bInvert=!bInvert;">Title</th>
+							<th ng-click="sOrder='sArtist';bInvert=!bInvert;">Artist</th>
+							<th ng-click="sOrder='sAlbum';bInvert=!bInvert;">Album</th>
+							<th ng-click="sOrder='lLength';bInvert=!bInvert;">Duration</th>
+							<th ng-click="sOrder='lYear';bInvert=!bInvert;">Year</th>
+						</tr>
+						<tr ng-repeat="oSong in aSongList | orderBy:sOrder:bInvert" ng-class-even="'odd'">
+							<td>{{oSong.lId}}</td>
+							<td>{{oSong.sTitle}}</td>
+							<td>{{oSong.sArtist}}</td>
+							<td>{{oSong.sAlbum}}</td>
+							<td>{{oSong.lLength}}</td>
+							<td>{{oSong.lYear}}</td>
+						</tr>
+					</table>
 				</tunejs-content-right>
 				<div class="clear"></div>
 			</tunejs-content>
